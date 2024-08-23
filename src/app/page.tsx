@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-import { LogIn } from "lucide-react";
+import { ArrowRight, LogIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { PdfUpload } from "@/components/pdf-upload";
@@ -11,6 +11,7 @@ import { ClassForm } from "@/components/class-form";
 export default async function Home() {
   const { userId } = await auth();
   const isAuth = !!userId;
+
   return (
     <div className="w-full min-h-screen overflow-x-hidden">
       <Navbar />
@@ -27,9 +28,19 @@ export default async function Home() {
               </Button>
             </Link>
           )}
-          <div className="flex mt-4 justify-center space-x-4">
-            {isAuth && <Button>Chat</Button>}
-          </div>
+          <Link href={`/chat/1`}>
+            <div className="flex mt-4 justify-center space-x-4">
+              {isAuth && (
+                <>
+                  <Link href={`/chat/1`}>
+                    <Button>
+                      Go to Chats <ArrowRight className="ml-2" />
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </div>
+          </Link>
         </div>
       </div>
     </div>
